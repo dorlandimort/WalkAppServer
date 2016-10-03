@@ -1,9 +1,12 @@
 import grails.converters.JSON
+import mx.edu.ulsaoaxaca.walkapp.domains.Cuenta
 import mx.edu.ulsaoaxaca.walkapp.domains.Dieta
 import mx.edu.ulsaoaxaca.walkapp.domains.DietaInsumo
 import mx.edu.ulsaoaxaca.walkapp.domains.Insumo
 import mx.edu.ulsaoaxaca.walkapp.domains.Persona
 import org.codehaus.groovy.grails.web.json.JSONObject
+
+import java.security.MessageDigest
 
 class BootStrap {
 
@@ -36,20 +39,24 @@ class BootStrap {
             return json
         }
 
+        def cuenta = new Cuenta(usuario: 'ddmort', password: toMD5('mementomori'))
         def  p = new Persona(
             nombre: "Giovanni",
             sexo: 'M',
             edad: 21,
             peso: 60,
-            estatura: 164
+            estatura: 164,
+            cuenta: cuenta
         ).save()
 
+        cuenta = new Cuenta(usuario: 'orlando', password: toMD5('mementomori'))
         def  p2 = new Persona(
                 nombre: "Orlando",
                 sexo: 'M',
                 edad: 21,
                 peso: 60,
-                estatura: 164
+                estatura: 164,
+                cuenta: cuenta
         ).save()
 
 
@@ -82,5 +89,9 @@ class BootStrap {
 
     }
     def destroy = {
+    }
+
+    String toMD5(String s) {
+        return MessageDigest.getInstance("MD5").digest(s.getBytes("UTF-8")).encodeHex().toString()
     }
 }

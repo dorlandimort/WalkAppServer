@@ -107,6 +107,7 @@ class PersonaController {
     }
 
     def auth() {
+        println "hola"
         JSONObject json = request.getJSON()
 
         JSONObject resp = new JSONObject()
@@ -117,7 +118,7 @@ class PersonaController {
             if(json.containsKey("password")) {
                 String p = toMD5(json.getString("password"))
                 String u = json.getString("usuario")
-
+                println p
                 def cuenta = Cuenta.find {
                     usuario == u &&
                             password == p
@@ -126,13 +127,12 @@ class PersonaController {
                     respSuccess.put("status", HttpURLConnection.HTTP_OK)
                     respSuccess.put("persona", cuenta.persona)
                     render respSuccess as JSON
-                } else {
+                } else
                     resp.put("msg", "Cuenta no válida")
-                }
-            } else {
+            } else
                 resp.put("msg", "Se debe proporcionar un password")
-            }
         } else {
+            println "no usuario"
             resp.put("msg", "Se debe proporcionar un nombre de usuario")
         }
         response.status = HttpURLConnection.HTTP_UNAUTHORIZED
