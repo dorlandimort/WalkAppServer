@@ -2,7 +2,7 @@ package mx.edu.ulsaoaxaca.walkapp.domains
 
 class Persona {
 
-    static hasOne = [cuenta: Cuenta, dieta: Dieta]
+    static hasOne = [cuenta: Cuenta]
     static hasMany = [bitacoras: Bitacora]
 
     String nombre
@@ -11,6 +11,7 @@ class Persona {
     Double peso // kilogramos
     Integer estatura // centimetros
     Double imc
+    Dieta dieta
 
     static constraints = {
         nombre(nullable: false, blank: false, maxSize: 120)
@@ -19,8 +20,14 @@ class Persona {
         peso(nullable: false, min: 30d, max: 250d)
         estatura(nullable: false, min: 100, max: 300)
         imc(nullable: true, min: 0d, max: 50d)
+        cuenta(nullable: true)
+        dieta(nullable: true)
+
     }
 
+    static  mapping = {
+        version false
+    }
 
     Double getImc() {
         return peso / (Math.pow((estatura / 100), 2))

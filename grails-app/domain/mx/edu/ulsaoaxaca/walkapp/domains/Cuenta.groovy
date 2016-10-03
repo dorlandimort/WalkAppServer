@@ -15,5 +15,6 @@ class Cuenta {
 
     static mapping = {
         status defaultValue: true
+        version false
     }
 }

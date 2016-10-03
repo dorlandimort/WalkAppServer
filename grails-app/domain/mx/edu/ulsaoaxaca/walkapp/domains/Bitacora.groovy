@@ -4,13 +4,13 @@ class Bitacora {
 
     static belongsTo = [persona: Persona]
 
-    Date fecha
+    String fecha
     Double latInicial
     Double lnInicial
     Double latFinal
     Double lnFinal
     Integer pasos
-    Integer cal // calorias quemadas
+    Double cal // calorias quemadas
 
     static constraints = {
         fecha(nullable: false)
@@ -19,6 +19,10 @@ class Bitacora {
         lnInicial(nullable: false)
         lnFinal(nullable: false)
         pasos(nullable: true, min: 0)
-        cal(nullable: true, min: 0)
+        cal(nullable: true, min: 0d)
+    }
+
+    static  mapping = {
+        version false
     }
 }

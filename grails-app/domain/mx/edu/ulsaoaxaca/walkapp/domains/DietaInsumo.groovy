@@ -8,5 +8,11 @@ class DietaInsumo {
 
     static constraints = {
         cantidad(nullable: true, min: 0d)
+        dieta(nullable: true)
+        insumo(nullable: true)
+    }
+
+    static  mapping = {
+        version false
     }
 }
